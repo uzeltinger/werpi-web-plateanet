@@ -12,11 +12,11 @@
 		  <p>{{currentQuotation.parking.workingHoursDescription}}</p>
 	  </div>
 
-	<label>Fechas</label>
+	<label>Fecha desde</label>
     <input
 	   id="momentDateFrom"
 	   type="text"
-	   placeholder="Ingreso:"
+	   placeholder="Ingrese fecha desde:"
        moment-picker="dates.formattedDateFrom"
        ng-model="momentDateFrom"
        change="refreshToDate()"
@@ -29,9 +29,10 @@
 	   readonly="true"
 	   min-date="mindate"
 	><br>
+	<label>Fecha hasta</label>
 	  <input
 			  type="text"
-			  placeholder="Egreso:"
+			  placeholder="Ingrese fecha hasta:"
 			  moment-picker="dates.formattedDateTo"
 			  ng-model="momentDateTo"
 			  locale="es"
