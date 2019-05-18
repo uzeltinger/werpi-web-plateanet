@@ -2,11 +2,11 @@
 	'use strict';
 
 	angular.module('app.security').
-		controller('LoginRegisterCtrl', ['$scope', '$location', 'AuthenticationSharedService', '$state','api','notify',
+		controller('LoginRegisterCtrl', ['$scope', '$rootScope', '$location', 'AuthenticationSharedService', '$state','api','notify',
 
-			function ($scope, $location, AuthenticationSharedService, $state, api, notify) {
+			function ($scope, $rootScope, $location, AuthenticationSharedService, $state, api, notify) {
 
-
+				$rootScope.loginPage = true;
         $scope.errors=[];
 				$scope.invalidLogin = false;
 				$scope.user = {};

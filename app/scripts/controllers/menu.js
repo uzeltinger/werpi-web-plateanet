@@ -54,6 +54,11 @@ angular.module('werpiApp')
 			return;
 		}
 		//$state.go('main');
+		if($rootScope.loginPage){
+			$rootScope.loginPage = false;
+			$state.go('main');
+			return;
+		}
 		window.history.back();
 	}
 
