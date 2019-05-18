@@ -23,8 +23,8 @@ module.exports = function (grunt) {
       } else if (grunt.option('env') === 'test') {
           domain = 'https://test.werpi.com/api/v1.0/';
       } else {
-          //domain = 'https://test.werpi.com/api/v1.0/';
-          domain = 'http://localhost/dt/werpi-web/desa/source/api/v1.0/';
+          domain = 'https://test.werpi.com/api/v1.0/';
+          //domain = 'http://localhost/dt/werpi-web/desa/source/api/v1.0/';
       }
       return domain;
   })());
