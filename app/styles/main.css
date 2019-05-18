@@ -344,7 +344,7 @@ input[type="number"] {
 .infoWindowContent{
   display: flex;
   padding-top: 7px;
-  padding-left: 3px;
+  padding-left: 10px;
   font-size: 13px;
   flex-direction: column;
   font-family: 'Roboto Condensed', 'Roboto', sans-serif;

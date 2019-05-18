@@ -487,7 +487,7 @@ angular.module('app.directives', ['app.services'])
 
           var generateMarkerContent = function(info, quotation, price) {
             var HTMLContent;
-            HTMLContent = '<div id="map-parking-container" class="container-info"> <img class="garage-logo" src="./images/estacionamiento.svg" alt=""><div ng-controller="MainCtrl" class="infoWindowContent"> <strong>' + info.parkingDescription + ' </strong>';
+            HTMLContent = '<div id="map-parking-container" class="container-info"><div ng-controller="MainCtrl" class="infoWindowContent"> <strong>' + info.parkingDescription + ' </strong>';
             //HTMLContent += quotation?'Desde: '+startDate.toLocaleDateString()+" <strong>"+startDate.toLocaleTimeString()+'</strong></br>':'';
             //HTMLContent += quotation?'Hasta: '+endDate.toLocaleDateString()+" <strong>"+endDate.toLocaleTimeString()+'</br>':'';
             HTMLContent += quotation?'<div class="address-line"> ' + quotation.parking.address.street + ' ' + quotation.parking.address.number + ' </div>':
