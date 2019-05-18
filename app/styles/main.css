@@ -967,6 +967,23 @@ h1.navbar-brand {
     border: 0;
 }
 
+.img-brand-anchor-home {
+    border: 0;
+    text-decoration: none;
+}
+
+.img-brand-home{
+    width: 260px;
+    margin: 0;
+    border: 0;
+}
+
+.img-brand-anchor-mobile{
+    display: none;
+}
+.navbar-header .img-brand-mobile{
+    display: none;
+}
 .img-brand.mobile-brand {
     margin-left: 4em;
     position: absolute;
@@ -2299,7 +2316,7 @@ nav.menu-mobile-back{
 @media only screen and (max-width: 767px) {
 
     .global-back-btn {
-        display: none !important;
+        /*display: none !important;*/
     }
 
     .reservation-date h3 {
@@ -2365,7 +2382,7 @@ nav.menu-mobile-back{
 }
 /*navigation*/
 #navigation.animated-header.navbar{
-        min-height: 42px;
+        min-height: 52px;
 }
     .navbar-toggle img{
         width: 40px;
@@ -2512,6 +2529,18 @@ nav.menu-mobile-back{
     .navbar-header .img-brand{
         display: none;
     }
+    .img-brand-anchor{
+        display: none;
+    }
+    .img-brand-anchor-mobile{
+        display: block;
+    }
+    .navbar-header .img-brand-mobile{
+        display: block;
+        width: 112px;
+        margin: 0;
+        border: 0;
+    }
     .map-text-container .form-control{
         border: none;
         width: 89%;
@@ -2549,7 +2578,7 @@ nav.menu-mobile-back{
         visibility: hidden;
     }
 
-    .nav-header__mobile-fixed .img-brand {
+    .nav-header__mobile-fixed .img-brand-home {
         width: 180px;
     }
 
@@ -2623,7 +2652,7 @@ nav.menu-mobile-back{
     margin-left: 0.5em;
    }
    .backtohome{
-    display: block;
+    /*display: block;*/
    }
 
    .user-details__text{
