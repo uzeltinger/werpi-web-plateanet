@@ -52,7 +52,11 @@
         </address>
       </div>
 
-      <div ng-if="justBooked" class="buy-success-message"><h3><strong>¡La compra se realizó con éxito!</strong><h3/><h3>¡Que disfrutes la experiencia!</h3></div>
+      <div ng-if="justBooked" class="buy-success-message">
+        <h3><strong>¡La compra se realizó con éxito!</strong></h3>
+        <h3>¡Que disfrutes la experiencia!</h3>
+        <h3>Te hemos enviado un mail de confirmación de compra.</h3>
+      </div>        
       <div class="booking-detail-wrapper buy-success-detail" ng-if="justBooked" >
         <!--<div class="booking-detail-close-wrapper tright" ng-click="closeBookingDetail()"><span> X </span></div>-->
         <address class="contact-details">
