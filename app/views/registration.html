@@ -1,0 +1,44 @@
+<!-- Top content -->
+<div class="top-content">
+	
+
+
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="page-background"></div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+
+                <div class="col-sm-8">
+
+                	<div class="form-box">
+                    	<div class="form-top">
+                            <div ng-if="registrationStatus==0" class="form-top-left-centered">
+                                <h3>Estamos confirmando el registro</h3>
+                                <p>Aguarde por favor...</p>
+                            </div>
+                            <div ng-if="registrationStatus==1" class="form-top-left-centered">
+                                <h3>Su registro fue confirmado con exito</h3>
+                                <!--p>Ya puede <a href='#/login'>ingresar</a> al sitio con su usuario y contrasena</p-->
+                                <p>Ahora logueate para continuar</p>
+                            </div>
+                            <div ng-if="registrationStatus==-1" class="form-top-left-centered">
+                                <h3>No fue posible confirmar su registro</h3>
+                                <p>Por favor intente nuevamente, o <a href='https://www.werpi.com/#contact'>contáctenos</a></p>
+                            </div>
+                    		<div class="form-top-right-centered">
+                                <i ng-show="registrationStatus==0" class="fa fa-clock-o"></i>
+                                <i ng-show="registrationStatus==1" class="fa fa-check"></i>
+                                <i ng-show="registrationStatus==-1" class="fa fa-warning"></i>
+                    		</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2"></div>
+            </div>
+            
+        </div>
+    </div>
+    
+</div>

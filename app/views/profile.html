@@ -1,0 +1,25 @@
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 wow animated fadeInLeft user-details ">
+						<address class="contact-details">
+							<h3>Perfil</h3>
+							<div class="user-details__text">
+								<div class="user-details__text-wrapper">
+									<p><img src="images/avatar.svg">{{user.firstName}} {{user.lastName}}</p>
+									<p><img src="images/mail.svg"></i>{{user.email}}</p>
+									<p><img src="images/auto.svg">{{user.licencePlate}}</p>
+								</div>
+							</div>
+						</address>
+					</div>
+		
+				</div>
+
+        <div ng-if="showModifProfileBanner" class="home-banner-container-top">
+            <div class="home-banner-container">
+                <div class="home-banner-closer" ng-click="closeBanner()"></div>
+                <div class="home-banner-image-container"><img src="/images/modificadatos.png"></div>
+                <div class="home-banner-link-bootom" ng-click="downloadWerpi()"></div>
+            </div>
+        </div>
+			</div>

@@ -1,0 +1,173 @@
+ 			<div class="container">
+				<div id="preloader" ng-show="loading">
+		            <div class="loder-box">
+	            		<div class="battery"></div>
+		            </div>
+				</div>
+
+  <div ng-show="paySection == 'step-one'" class="row reservation-date">
+    <h3>{{parking.parkingName}}</h3>
+	  <div class="sec-title text-center wow animated fadeInDown">
+		  <p>{{parking.address.street}}&nbsp;{{parking.address.number}}&nbsp;</p>
+		  <p>{{currentQuotation.parking.workingHoursDescription}}</p>
+	  </div>
+
+	<label>Fechas</label>
+    <input
+	   id="momentDateFrom"
+	   type="text"
+	   placeholder="Ingreso:"
+       moment-picker="dates.formattedDateFrom"
+       ng-model="momentDateFrom"
+       change="refreshToDate()"
+       locale="es"
+       format="LL LT"
+       min-view="month"
+       max-view="hour"
+       autoclose="true"
+       position="bottom"
+	   readonly="true"
+	   min-date="mindate"
+	><br>
+	  <input
+			  type="text"
+			  placeholder="Egreso:"
+			  moment-picker="dates.formattedDateTo"
+			  ng-model="momentDateTo"
+			  locale="es"
+			  format="LL LT"
+			  min-view="month"
+			  max-view="hour"
+			  autoclose="true"
+			  position="bottom"
+			  disabled="disabled">
+	  <br>
+
+	<label>Vehiculo</label>
+
+	<div class="btn-vehicle-container">
+		  <div class="btn-vehicle btn-radio" data-toggle="tooltip" data-placement="bottom" title="Automovil" ng-click='changeVehicleType(1)' ng-class="{'auto-activo': vehicleTypeId == 1,'auto-no-activo': vehicleTypeId != 1}">
+		  	<div></div>
+		  </div>
+		  <div class="btn-vehicle btn-radio" data-toggle="tooltip" data-placement="bottom" title="Moto" ng-click='changeVehicleType(2)' ng-class="{'moto-activo': vehicleTypeId == 2,'moto-no-activo': vehicleTypeId != 2}">
+		  	<div></div>
+		  </div>
+		  <div class="btn-vehicle btn-radio" data-toggle="tooltip" data-placement="bottom" title="4x4" ng-click='changeVehicleType(3)' ng-class="{'suv-activo': vehicleTypeId == 3,'suv-no-activo': vehicleTypeId != 3}">
+		  	<div></div>
+		  </div>
+		  <div class="btn-vehicle btn-radio" data-toggle="tooltip" data-placement="bottom" title="Camion" ng-click='changeVehicleType(4)' ng-class="{'camion-activo': vehicleTypeId == 4,'camion-no-activo': vehicleTypeId != 4}">
+		  	<div></div>
+		  </div>
+		  <div class="btn-vehicle btn-radio" data-toggle="tooltip" data-placement="bottom" title="Bicicleta" ng-click='changeVehicleType(5)' ng-class="{'bici-activo': vehicleTypeId == 5,'bici-no-activo': vehicleTypeId != 5}">
+		  	<div></div>
+		  </div>
+	</div>
+
+	<br>
+
+	<label>Patente</label>
+
+	<input type="text" ng-model="licencePlate" placeholder="Ingrese su patente"/>
+	<br>
+
+	<label>Conductor</label>
+
+	<input type="text" ng-model="contactFirstName" placeholder="Ingrese su nombre"/>
+	<br>
+	<input type="text" ng-model="contactLastName" placeholder="Ingrese su apellido"/>
+	<br>
+
+	<!--label>Cupón de descuento</label>
+	<div class="short-input-container"><input class="short-input" type="text" ng-model="voucherKey" placeholder="Ingrese su código de descuento"/>
+   	<a style="display:inline-flex; width:10%; margin-left:40px;" class="pay-button" ng-click="applyVoucher()"><img src="images/confirmar.svg">Aplicar</a></div>
+	<br-->
+
+
+	<label ng-show="currentQuotation.price>=0&&currentQuotation.netDiscount==0"><h3 style="display:inline;font-weight:bold;">Precio: ${{currentQuotation.price}}</h3></label>
+	<label ng-show="currentQuotation.price>=0&&currentQuotation.netDiscount>0"><h3 style="display:inline;font-weight:bold;">Precio:</h3>&nbsp;&nbsp;<h3 style="display:inline;color:#30b736;font-weight:bold;">${{currentQuotation.price}}</h3>&nbsp;&nbsp;<h3 style="text-decoration:line-through;display:inline;color:#e93030;font-weight:bold;">${{currentQuotation.price+currentQuotation.netDiscount}}</h3></label>
+	
+	
+	<br>
+
+ 	<div class="col-xs-12 quotation-warning" ng-repeat="message in messages">
+ 		<p>{{message.content}}</p>
+ 	</div>
+	
+	<br>
+	<br>
+	<br>
+
+   <div class="col-xs-12 reservation-date__confirmation"> 
+   		<a class="pay-button" id="a-reservar" ng-click="goStepTwo()"><img src="images/reservar.svg">Reservar</a>
+   	</div>
+
+  </div>
+
+<div ng-show="paySection == 'step-two'" class="row">
+
+
+
+					<div class="col-md-5 wow animated fadeInRight">
+						<address class="contact-details">
+							<h3>Detalle de compra</h3>
+							<h4 class="text-center"><strong>Conductor</strong></h4>
+							<p><strong>Nombre: </strong>{{booking.contactData[0].contactName}}</p>
+							<p><strong>Apellido: </strong>{{booking.contactData[0].contactSurname}}</p>
+							<p><strong>Patente: </strong>{{booking.contactData[0].licensePlate}}</p>
+
+							<h4 class="text-center"><strong>Estacionamiento</strong></h4>
+							<p><strong>Direccion: </strong>{{booking.parking.address.street + " " + booking.parking.address.number + ", " + booking.parking.address.province.provinceDescription;}}</p>
+							<p><strong>Fecha: </strong>{{booking.formattedStartDate.toLocaleString()}}</p>
+							<p><strong>Valor: </strong>${{booking.price}}</p>
+						</address>
+					</div>
+
+     	<div ng-show="currentQuotation.price==0" class="col-xs-12 reservation-date__confirmation">
+     		<a class="pay-button" id="a-confirmar" ng-click="processFreePay()"><img src="images/pagar.svg">Confirmar</a>
+     	</div>
+
+	<div ng-show="currentQuotation.price>0" class="col-md-7 contact-form wow animated fadeInLeft">
+					<div class="wow animated fadeInDown contact-details">
+							<h3>Pagar<p style='font-size:12px;display:inline;float:right;margin-top:10px;'>Aceptamos tarjeta de crédito o débito</p></h3>
+					</div>
+						<form  id="frmPay" ng-submit="processPay()" >
+							<div class="col-md-6 input-field">
+								<label for="cardNumber">Número de tarjeta</label>
+                				<input type="number" ng-style="paymentMethodImg != '' && {'background-image':'url('+paymentMethodImg+')'}" inputmode="numeric" pattern="[0-9]*" id="cardNumber" class="form-control input-iconed" ng-model="cardNumber" ng-change="guessingPaymentMethod()" data-checkout="cardNumber" placeholder="" required/>
+							</div>
+				            <div  class="col-md-3 input-field">
+								<label for="cardExpirationMonth">Mes</label>
+				                <select id="cardExpirationMonth" ng-model="cardExpirationMonth" class="form-control"  data-checkout="cardExpirationMonth" required><option value="" selected></option><option ng-repeat="month in monthList" value="{{month}}">{{month}}</option></select>
+				                <!--input type="number" inputmode="numeric" pattern="[0-9]*" id="cardExpirationMonth" class="form-control" ng-model="cardExpirationMonth" limit-to="2" data-checkout="cardExpirationMonth" min="0" max="12" placeholder="MM" required/-->
+				            </div>
+				            <div  class="col-md-3 input-field">
+								<label for="cardExpirationYear">Año</label>
+				                <select id="cardExpirationYear" ng-model="cardExpirationYear" class="form-control"  data-checkout="cardExpirationYear" required><option value="" selected></option><option ng-repeat="year in yearList" value="{{year}}">{{year}}</option></select>
+				                <!--input type="number" inputmode="numeric" pattern="[0-9]*" id="cardExpirationYear" class="form-control" ng-model="cardExpirationYear" limit-to="4" data-checkout="cardExpirationYear" maxlength="4" min="2007" max="9999"  placeholder="AAAA" required/-->
+				            </div>
+							<div class="col-md-4 input-field">
+								<label for="securityCode">Código de Seguridad</label>
+				                <input type="number" inputmode="numeric" pattern="[0-9]*" id="securityCode" class="form-control" data-checkout="securityCode" min="0" max="9999" placeholder="" required/>
+				            </div>
+				            <div class="col-md-8 input-field">
+				                <label for="cardholderName">Nombre y apellido</label>
+				                <input type="text" id="cardholderName" pattern="[^0-9]*" oninput="setCustomValidity(' ')" onchange="try{setCustomValidity('')}catch(e){}" oninvalid="this.value?setCustomValidity('El Nombre y Apellido no puede contener números'):setCustomValidity('Ingrese Nombre y Apellido')" class="form-control" data-checkout="cardholderName" placeholder="" required/>
+				            </div>
+				            <div class="col-md-4 input-field">
+				                <label for="docType">Tipo de documento</label>
+				                <select id="docType" class="form-control"  data-checkout="docType"></select>
+				            </div>
+				            <div class="col-md-8 input-field">
+				                <label for="docNumber">Número de documento</label>
+				                <input type="number" inputmode="numeric" pattern="[0-9]*" class="form-control"  id="docNumber" data-checkout="docNumber" placeholder="" required/>
+				            </div>
+
+     	<div class="col-xs-12 reservation-date__confirmation">
+     		<!--a class="pay-button" id="btn-pay" ng-click="processPay()"><img src="images/pagar.svg">Pagar</a-->
+     		<button type="submit" class="pay-button" id="btn-pay"><img src="images/pagar.svg">Pagar</button>
+     	</div>
+  	</div>
+
+
+				</div>
+			</div>

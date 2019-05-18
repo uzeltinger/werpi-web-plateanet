@@ -1,0 +1,220 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TRN3M92');</script>
+<!-- End Google Tag Manager -->
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-notify/dist/angular-notify.css" />
+    <link rel="stylesheet" href="bower_components/moment-picker/dist/angular-moment-picker.min.css" />
+    <!-- endbower -->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" />
+    <!-- endbuild -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">      
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="icomoon/style.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/login.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="werpiApp">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TRN3M92"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+      <span ng-controller="MenuController">
+          <!-- NAV DESKTOP -->
+            <header ng-class="{home: isHome}" id="navigation" class="navbar navbar-fixed-top animated-header">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="backtohome" href="#/" ng-click="goBack($event)"><img style="height: 22px; margin-left: -8px;" src="images/icons/arrow_back_grey_192x192.png"> volver</a>
+                    <button type="button" class="navbar-toggle"  data-toggle="collapse" data-target=".navbar-collapse"></button>
+                    <!-- Main LOGO -->
+                    <a class="img-brand-anchor" href="#/"><img class="img-brand" src="images/plateanet-werpi-logo.png"/></a>
+                </div>
+
+                <nav class="collapse navbar-collapse navbar-right" role="navigation">
+                    <ul id="nav-desktop" class="nav navbar-nav">
+                        <li><a ng-if="authenticated" id="btn-menu-reservas"  ng-href="#/booking/">Mis reservas</a></li>
+                        <!--li><a href="https://werpi.com/#contact">Contacto</a></li-->
+                        <!--li><a ng-if="!authenticated" id="btn-menu-ingresar"  ng-href="#/login">Iniciar sesión</a></li-->
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right" ng-if="authenticated">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span> 
+                                <strong>{{userDisplayName}}</strong>
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="navbar-login">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p class="text-center">
+                                                    <img class="avatar-toggle" src="images/hombrecillo.svg">
+                                                </p>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <p class="text-center"><strong>{{userDisplayName}}</strong></p>
+                                                <p class="text-center small">{{userEmail}}</p>
+                                                <p class="text-center small"><i class="fa fa-car"></i> {{userLicencePlate}}</p>
+                                                <p class="text-left">
+                                                    <a id="btn-menu-profile" href="#/profile" class="btn btn-primary btn-block btn-sm">Perfil</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="navbar-login navbar-login-session">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p>
+                                                    <a href="#" id="btn-menu-logout" ng-click="logout()" class="btn btn-danger btn-block">Cerrar Sesion</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div class="nav-header__mobile-fixed" ng-class="{'nav-header__mobile-fixed-small': !isHome}">
+            <a class="img-brand-anchor" href="#/"><img class="img-brand" src="images/plateanet-werpi-logo.png"/></a>
+        </div>
+
+          <!-- NAV MOBILE -->
+          <nav class="menu-mobile-back"  ng-class="{active: menuIsActive}">
+              <div class="overlay-menu"  ng-click="toggleMenu()"></div>
+              <div class="menu-mobile-despl" >
+                  <div  ng-if="authenticated" class="turn-off"><h4><a href="#" id="btn-menu-mobile-logout" ng-click="logout()">Salir</a></h4><img  src="images/apagar.svg"></div>
+                  <div class=" avatar-profile">
+                      <img  src="images/hombrecillo.svg">
+                      <p><strong>{{userDisplayName}}</strong></p>
+                  </div>
+                  <ul id="nav-mobile" class=" nav navbar-nav">
+                      <li ng-if="authenticated" > <a id="btn-menu-mobile-profile" href="#/profile" >Mi Cuenta</a></li>
+                      <li ng-if="authenticated" ><a id="btn-menu-mobile-reservas" ng-if="authenticated" ng-href="#/booking/">Mis reservas</a></li>
+                      <!--li><a href="https://werpi.com/#contact">Contacto</a></li-->
+                      <li ng-if="!authenticated"><a id="btn-menu-mobile-ingresar" ng-href="#/login">Ingresar</a></li>
+                  </ul>
+                  <img class="img-brand mobile-brand" src="images/logo-werpi-full.png"/>
+              </div>
+          </nav>
+
+
+              <a id="global-back-btn"
+                 class="global-back-btn"
+                 ng-class="{hide: isHome}"
+                 href="#/" ng-click="goBack($event)">
+                    <img style="height: 22px;" src="images/icons/arrow_back_grey_192x192.png"> volver
+              </a>
+
+        </span>
+    <div id="main-content" class="container">
+    <div ng-view=""></div>
+        <ui-view></ui-view>
+    </div>
+
+
+
+    <footer id="footer">
+          <div class="container">
+            <div class="row text-center">
+              <div class="footer-content">
+                <p>Copyright &copy; 2016 Powered By <a href="http://www.grupodateng.com">Grupo Dateng</a> | <a href="https://www.werpi.com/#terms" id="btn-footer-terms">Términos y condiciones del servicio</a> </p>
+              </div>
+            </div>
+          </div>
+    </footer>
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/moment/min/moment-with-locales.min.js"></script>
+    <script src="bower_components/moment/locale/es.js"></script>
+    <script src="bower_components/moment/locale/en-au.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-notify/dist/angular-notify.js"></script>
+    <script src="bower_components/moment-picker/dist/angular-moment-picker.min.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+
+        <script src="scripts/app.js"></script>
+
+
+        <script src="scripts/controllers/common/http-auth-interceptor.js"></script>
+        <script src="scripts/controllers/common/api-provider.js"></script>
+        <script src="scripts/controllers/common/common-module.js"></script>
+        <script src="scripts/controllers/security/module.security.js"></script>
+        <script src="scripts/controllers/security/service.login.js"></script>
+        <script src="scripts/controllers/security/controller.login.js"></script>
+        <script src="scripts/controllers/security/controller.register.js"></script>
+        <script src="scripts/controllers/security/controller.login-register.js"></script>
+        <script src="scripts/controllers/common/constants.js"></script>
+        <script src="scripts/directives/directive.map.js"></script>
+        <script src="scripts/directives/directive.limit-to.js"></script>
+        <script src="scripts/services/service.parking.js"></script>
+        <script src="scripts/controllers/security/http-token-interceptor.js"></script>
+        <script src="scripts/controllers/menu.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/pay.js"></script>
+        <script src="scripts/controllers/booking.js"></script>
+        <script src="scripts/controllers/profile.js"></script>
+        <script src="scripts/controllers/terms.js"></script>
+        <script src="scripts/controllers/registration.js"></script>
+        <script src="scripts/controllers/change-password.js"></script>
+        <!-- endbuild -->
+
+        <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDr1ohWVB2pYa5HzNfIwytHaoqgI09SOfI&libraries=geometry,places"></script>
+</body>
+</html>

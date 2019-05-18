@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="row">
+    <div class="contact-details">
+      <div class="col-md-2"><!-- Alignment space --></div>
+      <div ng-show="bookings.length==0" class="col-md-8 wow animated fadeInLeft">
+        <h4>Todavia no realizaste una reserva! Este es un buen momento, <a href="#/">compra tu estadia ahora!</a></h4>
+      </div>
+      <div ng-show="bookings.length>0" class="col-md-8 wow animated fadeInLeft">
+
+        <h3 class="table-title">Mis Reservas</h3>
+
+        <table class="table columnHeadings" style="table-layout: fixed">
+          <tbody>
+          <tr class="reserva-fila" ng-repeat="bookingItem in bookings">
+            <td class="col-md-4 col-sm-3">
+              {{bookingItem.booking.parking.parkingName}}
+            </td>
+            <td class="col-md-2 col-sm-2 tcenter">
+              {{bookingItem.booking.formattedShortStartDate}} {{bookingItem.booking.formattedShortStartTime}}<br>
+              {{bookingItem.booking.duration}} ${{bookingItem.booking.price}}
+            </td>
+            <td ng-if="bookingItem.booking.bookingStatus.bookingStatusId==4" class="col-md-2 col-sm-2 tcenter">
+              <div class="reserva-cancelada">RESERVA <br/>CANCELADA</div>
+            </td>
+            <td ng-if="bookingItem.booking.bookingStatus.bookingStatusId!=4" ng-click="showBooking($index)" class="col-md-2 col-sm-2 tcenter ver-td">
+              <img class="ticket" src="images/ticket.svg">
+              <p>VER</p>
+            </td>
+          </tbody>
+        </table>
+        <!--<pre>{{bookings | json}}</pre>-->
+      </div>
+    </div>
+
+    <div ng-if="bookingDetail" class="wow animated fadeInLeft booking-detail">
+      <div class="booking-detail-wrapper" ng-if="!justBooked" >
+        <!--<div class="booking-detail-close-wrapper tright" ng-click="closeBookingDetail()"><span> X </span></div>-->
+        <address class="contact-details">
+          <h5>Reserva de 12Hs.</h5>
+          <h4><strong> {{booking.parking.parkingName}}</strong></h4>
+          <p><strong>Código: </strong> {{booking.bookingId}}</p>
+          <p><strong>Nombre: </strong>{{booking.contactData[0].contactName}} {{booking.contactData[0].contactSurname}}</p>
+          <p><strong>Patente:</strong> {{booking.contactData[0].licensePlate}}</p>
+          <p><strong>Estado:</strong>{{booking.bookingStatus.bookingStatusDescription}}</p>
+          <p><strong>Fecha y hora de ingreso: </strong>{{booking.formattedStartDate.toLocaleString()}}</p>
+          <p><strong>Fecha y hora de salida: </strong>{{booking.formattedEndDate.toLocaleString()}}</p>
+          <p><strong>Valor: $</strong>{{booking.price}}</p>
+          
+          <div class="col-xs-12 bottom-button-container"> 
+            <a class="bottom-button" id="btn-reenviar-ticket" ng-click="resendVoucher()"><img src="images/mail.png">Reenviar</a>
+          </div>
+        </address>
+      </div>
+
+      <div ng-if="justBooked" class="buy-success-message"><h3><strong>¡La compra se realizó con éxito!</strong><h3/><h3>¡Que disfrutes la experiencia!</h3></div>
+      <div class="booking-detail-wrapper buy-success-detail" ng-if="justBooked" >
+        <!--<div class="booking-detail-close-wrapper tright" ng-click="closeBookingDetail()"><span> X </span></div>-->
+        <address class="contact-details">
+          <h3>Detalle de la compra</h3>
+          <div class="row">
+            <div class="col-md-6">
+              <h4 class="text-center"><strong>Conductor</strong></h4>
+              <p><strong>Nombre: </strong>{{booking.contactData[0].contactName}}</p>
+              <p><strong>Apellido: </strong>{{booking.contactData[0].contactSurname}}</p>
+              <p><strong>Patente: </strong>{{booking.contactData[0].licensePlate}}</p>
+            </div>
+            <div class="col-md-6">
+              <h4 class="text-center"><strong>Estacionamiento</strong></h4>
+              <p><strong>Direccion: </strong>{{booking.parking.address.street + " " + booking.parking.address.number + ", " + booking.parking.address.province.provinceDescription;}}</p>
+              <p><strong>Fecha: </strong>{{booking.formattedStartDate.toLocaleString()}}</p>
+              <p><strong>Valor: </strong>${{booking.price}}</p>
+              <div class="col-xs-12 bottom-button-container"> 
+                <a class="bottom-button" id="btn-finalizar" ng-click="goHome()"><img src="images/confirmar.svg">Finalizar</a>
+              </div>
+            </div>
+          </div>
+          
+        </address>
+      </div>
+    
+
+    </div>
+
+  </div>
+
+        <div ng-if="bookingDetail && justBooked && showBuyBanner" class="home-banner-container-top">
+            <div class="home-banner-container">
+                <div class="home-banner-closer" ng-click="closeBanner()"></div>
+                <div class="home-banner-image-container"><img src="/images/bannernavegar.png"></div>
+                <div class="home-banner-link-bootom" ng-click="downloadWerpi()"></div>
+            </div>
+        </div>
+
+</div>

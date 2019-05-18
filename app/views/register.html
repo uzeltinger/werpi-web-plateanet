@@ -1,0 +1,69 @@
+<!-- Top content -->
+<div class="top-content login-container">
+    <div id="preloader" ng-show="loading">
+        <div class="loder-box">
+            <div class="battery"></div>
+        </div>
+    </div>
+    <div class="inner-bg">
+        <div class="container">
+            <div class="page-background"></div>
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10">
+
+                    <div class="form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h3>Registrarse</h3>
+                                <p>Registrese ingresando los siguientes datos</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-pencil"></i>
+                            </div>
+                        </div>
+                        <div class="form-bottom">
+                            <ul  class="error-message" >
+                                <li ng-repeat="error in errors track by $index" >*{{error}} </li>
+                            </ul>
+                            <form role="form" ng-submit="signUp()" class="registration-form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-first-name">Nombre</label>
+                                    <input type="text" ng-model="firstName" name="form-first-name" placeholder="Nombre" class="form-control" id="form-first-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-last-name">Apellido</label>
+                                    <input type="text" ng-model="lastName" name="form-last-name" placeholder="Apellido" class="form-last-name form-control" id="form-last-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-email">Email</label>
+                                    <input type="email"  ng-model="email" name="form-email" placeholder="Email" class="form-email form-control" id="form-email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-licenceplate">Patente</label>
+                                    <input type="text"  ng-model="licensePlate"  name="form-licenceplate" placeholder="Patente" class="form-licenceplate form-control" id="form-licenceplate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-password">Password</label>
+                                    <input type="password"  ng-model="password"  name="form-password" placeholder="Contrasena" class="form-password form-control" id="form-password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-passwordConfirmation">Confirmar Password</label>
+                                    <input type="password"  ng-model="passwordConfirmation"  name="form-password" placeholder="Repetir contraseña" class="form-password form-control" id="form-passwordConfirmation" required>
+                                </div>
+                                <div class="form-group">
+                                    <p class="small-text" ><input type="checkbox"  ng-model="terms"  name="form-terms" class="" id="form-terms" required>&nbsp;&nbsp;Acepto los <a href="#/terms" target="_blank">términos y condiciones </a>del servicio</p>
+                                </div>
+                                <button type="submit" id="save-registration" class="btn btn-blue btn-effect btn-top-margin">Registrar</button>
+                            </form>
+                        </div>
+                        <p class="forgotPassword goToLogin small-text"><a href="" id="btn-goto-login" ng-href="#/login">¿Ya tienes cuenta? Iniciar sesión</a></p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
