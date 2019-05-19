@@ -1,37 +1,28 @@
-<div id="google-map">
-            <div id="map-canvas" fixed-position="URLFixedPostion" query="queryMap" mark="markMap" places="otherPlaces" date-from="dateFrom" date-to="dateTo" location="selectedLocation" lat="-23.639492" lng="133.709107" zoom="8" map>
-</div>
+<div ng-controller="MainCtrl" class="plateanet-home">
 
-    <div ng-show="!showBuscarDestino" class="plateanet-top-banner"><h3>Ya tenés tus entradas...</h3><h3><strong>¡Ahora reservá tu estacionamiento!</strong></h3></div>
-    <div  ng-show="showBuscarDestino" class="list list-inset map-text-container">
-        <img class="menu-mobile" src="images/menu.svg" ng-click="toggleMenu()">
-        <input type="text" id="buscar-destino" ng-change="buscarUbicacion()" ng-model="textoUbicacion" name="form-first-name" placeholder="A dónde vas?" class="form-control" id="form-first-name">
-
-        <!--select ng-if="showTeatros" ng-change="buscarTeatro()" ng-model="teatro" name="form-first-name" placeholder="A dónde vas?" class="form-control" id="form-first-name">
-      		<option ng-repeat="teatro in allTeatros" value="{{teatro.Id}}">{{teatro.ComboDescription}}</option>
-        </select-->
-
-        <div ng-repeat="obj in lugaresPosibles track by $id(obj)" ng-click="irUbicacion(obj)" class="form-control form-control__full-width map-query-results"><strong ng-if="obj.types[0]!='street_address'">{{obj.name}}&nbsp;</strong>{{obj.formatted_address}}</div>
+    <div class="plateanet-home-banner">
+        <h3>Ya tenés tus entradas...</h3>
+        <h3><strong>¡Ahora reservá tu estacionamiento!</strong></h3>
     </div>
 
+    <div class="row">
+        <div ng-repeat="parking in parkings" class="col-sm-6 col-md-4 col-lg-3">            
+            <div class="card" ng-show="$index<showAll">
+                <div class="card-container">
+                    <h4><b>{{parking.parkingName}}</b></h4>
+                    <p>{{parking.address.street}} {{parking.address.number}}</p>
+                    <p>a {{parking.distance | number : 2}} m del teatro</p>
+                    <button type="submit" ng-click="reservar(parking)"
+                        class="btn btn-blue btn-effect btn-top-margin">Reservar</button>
 
-      </div>
-
-        <div ng-if="showBanner==true" class="home-banner-container-top">
-            <div class="home-banner-container">
-                <div class="home-banner-closer" ng-click="closeBanner()"></div>
-                <div class="home-banner-image-container"><img src="/images/banner.png"></div>
-                <div class="home-banner-link-bootom" ng-click="downloadWerpi()"></div>
+                </div>
             </div>
         </div>
-
-        <div ng-if="showMobileBanner==true" class="home-mobile-banner-container">
-            <div class="home-mobile-banner-closer" ng-click="closeMobileBanner()"></div>
-            <div class="home-mobile-banner-image-container"><img src="/images/bannerabrir.png"></div>
-            <div class="home-mobile-banner-link-bootom" ng-click="downloadWerpi()"></div>
+    </div>
+    <div class="row">
+        <div class="vermas">
+            <button type="submit" ng-click="verMas()" class="btn btn-blue btn-effect btn-top-margin">Ver más</button>
         </div>
-
-
     </div>
 
 </div>

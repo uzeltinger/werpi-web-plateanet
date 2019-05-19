@@ -8,7 +8,41 @@
  * Controller of the werpiApp
  */
 angular.module('werpiApp')
-  .controller('MainCtrl', function ($scope,$rootScope,$location,$timeout,$filter,api,$window) {
+  .controller('MainCtrl', function ($scope, $http, api, SELLER) {
+
+    $scope.parkings = [];
+    $scope.myPosition = { long: -58.3810793, lat: -34.606510 };
+    $scope.showAll = 4;
+    getList();
+
+    /*$http.get('parkings.json').then(function (response) {
+      $scope.parkings = response.data;
+      return response;
+    });*/
+
+    function getList() {
+      api.parking.lista({ 'sellerId': SELLER.sellerID, 'latitude': $scope.myPosition.lat, 'longitude': $scope.myPosition.long }).$promise.then(function (response) {
+        var parkings = response.data.parkings;
+        //console.log('parkings', parkings);
+        angular.forEach(parkings, function (info, key) {
+          let buttonReservar = '<button type="button" id="btn-reservar" onClick="window.sessionStorage.setItem(\'reservarUrl\', \'#/buy/?parkingId=' + info.parkingId + '&lat=' + $scope.myPosition.lat + '&lng=' + $scope.myPosition.long + '\');window.location.href=\'#/buy/?parkingId=' + info.parkingId + '&lat=' + $scope.myPosition.lat + '&lng=' + $scope.myPosition.long + '\'" class=""><img src="./images/reservar.svg" alt="">Reservar</button>';
+          info.buttonReservar = buttonReservar;
+        });
+        $scope.parkings = parkings;
+      });
+    }
+
+    $scope.reservar = function(parking){
+      window.sessionStorage.setItem('reservarUrl', '#/buy/?parkingId=' + parking.parkingId + '&lat=' + $scope.myPosition.lat + '&lng=' + $scope.myPosition.long );
+      window.location.href='#/buy/?parkingId=' + parking.parkingId + '&lat=' + $scope.myPosition.lat + '&lng=' + $scope.myPosition.long ;
+    }
+
+    $scope.verMas = function(){
+      $scope.showAll = 999;
+    }
+
+
+    /*
     $scope.textoUbicacion = "";
     $scope.selectedLocation = "";
     $scope.lugaresPosibles = [];
@@ -144,144 +178,144 @@ angular.module('werpiApp')
       return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
 
     }
-
+*/
     /*if($scope.showBanner==false && $scope.isMobile()){
         $scope.showMobileBanner = $window.sessionStorage.getItem("showMobileBanner");
         $scope.showMobileBanner = $scope.showMobileBanner?$scope.showMobileBanner:true;
     }else{
         $scope.showMobileBanner = false;
     }*/
+
+    $scope.showMobileBanner = false;
+    /*
+      api.plateanet.getTeatros().$promise.then(function(response) {
+               $scope.allTeatros = response.data;
+               $scope.selectedTeatro = $scope.allTeatros[0];
+               $scope.allTeatros=$filter('orderBy')($scope.allTeatros, 'ComboDescription');
+               $scope.showTeatros = true;
+               var places= [];
+                angular.forEach($scope.allTeatros, function(teatro) {
+                  
+                  if ($scope.urlIdTeatro && $scope.urlIdTeatro!=''){
+                    if ($scope.urlIdTeatro==teatro.Id){
+                      var place = {id:'teatro-'+teatro.Id, info:{icon:"images/map-plateanet.png",lat:teatro.Latitud,long:teatro.Longitud,name:teatro.Name,description:teatro.Name}};
+                      places.push(place);
+                      $scope.URLFixedPostion={name:'',coords:{longitude:teatro.Longitud,latitude:teatro.Latitud}};
+                    }
+                  }else{
+                      var place = {id:'teatro-'+teatro.Id, info:{icon:"images/map-plateanet.png",lat:teatro.Latitud,long:teatro.Longitud,name:teatro.Name,description:teatro.Name}};
+                      places.push(place);
+                  }              
+                });
+                $scope.otherPlaces=places;
+          }, function(response) {$scope.showTeatros = false;} );
     
-$scope.showMobileBanner=false;
-
-  api.plateanet.getTeatros().$promise.then(function(response) {
-           $scope.allTeatros = response.data;
-           $scope.selectedTeatro = $scope.allTeatros[0];
-           $scope.allTeatros=$filter('orderBy')($scope.allTeatros, 'ComboDescription');
-           $scope.showTeatros = true;
-           var places= [];
-            angular.forEach($scope.allTeatros, function(teatro) {
-              
-              if ($scope.urlIdTeatro && $scope.urlIdTeatro!=''){
-                if ($scope.urlIdTeatro==teatro.Id){
-                  var place = {id:'teatro-'+teatro.Id, info:{icon:"images/map-plateanet.png",lat:teatro.Latitud,long:teatro.Longitud,name:teatro.Name,description:teatro.Name}};
-                  places.push(place);
-                  $scope.URLFixedPostion={name:'',coords:{longitude:teatro.Longitud,latitude:teatro.Latitud}};
-                }
-              }else{
-                  var place = {id:'teatro-'+teatro.Id, info:{icon:"images/map-plateanet.png",lat:teatro.Latitud,long:teatro.Longitud,name:teatro.Name,description:teatro.Name}};
-                  places.push(place);
-              }              
-            });
-            $scope.otherPlaces=places;
-      }, function(response) {$scope.showTeatros = false;} );
+    */
 
 
 
-
-
-/*
-
-    $scope.refrescarFechas = function (){
-      $scope.dateTo = new Date($scope.dateFrom.getTime() + (48*60*60*1000));
-    };
-
-
-  $scope.today = function() {
-      $scope.dt = new Date();
-    };
-
-  $scope.today();
-
-  $scope.clear = function() {
-    $scope.dt = null;
-  };
-
-  $scope.inlineOptions = {
-    customClass: getDayClass,
-    minDate: new Date(),
-    showWeeks: true
-  };
-
-  $scope.dateOptions = {
-    dateDisabled: disabled,
-    formatYear: 'yy',
-    maxDate: new Date(2020, 5, 22),
-    minDate: $scope.dateFrom,
-    startingDay: 1
-  };
-
-  // Disable weekend selection
-  function disabled(data) {
-    var date = data.date,
-      mode = data.mode;
-    return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-  }
-
-  $scope.toggleMin = function() {
-    $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
-    $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
-  };
-
-  $scope.toggleMin();
-
-  $scope.open1 = function() {
-    $scope.popup1.opened = true;
-  };
-
-  $scope.open2 = function() {
-    $scope.popup2.opened = true;
-  };
-
-  $scope.setDate = function(year, month, day) {
-    $scope.dt = new Date(year, month, day);
-  };
-
-  $scope.formats = ['dd-MM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-  $scope.format = $scope.formats[0];
-  $scope.altInputFormats = ['M!/d!/yyyy'];
-
-  $scope.popup1 = {
-    opened: false
-  };
-
-  $scope.popup2 = {
-    opened: false
-  };
-
-  var tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  var afterTomorrow = new Date();
-  afterTomorrow.setDate(tomorrow.getDate() + 1);
-  $scope.events = [
-    {
-      date: tomorrow,
-      status: 'full'
-    },
-    {
-      date: afterTomorrow,
-      status: 'partially'
-    }
-  ];
-
-  function getDayClass(data) {
-    var date = data.date,
-      mode = data.mode;
-    if (mode === 'day') {
-      var dayToCheck = new Date(date).setHours(0,0,0,0);
-
-      for (var i = 0; i < $scope.events.length; i++) {
-        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
-
-        if (dayToCheck === currentDay) {
-          return $scope.events[i].status;
-        }
+    /*
+    
+        $scope.refrescarFechas = function (){
+          $scope.dateTo = new Date($scope.dateFrom.getTime() + (48*60*60*1000));
+        };
+    
+    
+      $scope.today = function() {
+          $scope.dt = new Date();
+        };
+    
+      $scope.today();
+    
+      $scope.clear = function() {
+        $scope.dt = null;
+      };
+    
+      $scope.inlineOptions = {
+        customClass: getDayClass,
+        minDate: new Date(),
+        showWeeks: true
+      };
+    
+      $scope.dateOptions = {
+        dateDisabled: disabled,
+        formatYear: 'yy',
+        maxDate: new Date(2020, 5, 22),
+        minDate: $scope.dateFrom,
+        startingDay: 1
+      };
+    
+      // Disable weekend selection
+      function disabled(data) {
+        var date = data.date,
+          mode = data.mode;
+        return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
       }
-    }
-
-    return '';
-  }
-  */
+    
+      $scope.toggleMin = function() {
+        $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+        $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+      };
+    
+      $scope.toggleMin();
+    
+      $scope.open1 = function() {
+        $scope.popup1.opened = true;
+      };
+    
+      $scope.open2 = function() {
+        $scope.popup2.opened = true;
+      };
+    
+      $scope.setDate = function(year, month, day) {
+        $scope.dt = new Date(year, month, day);
+      };
+    
+      $scope.formats = ['dd-MM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+      $scope.format = $scope.formats[0];
+      $scope.altInputFormats = ['M!/d!/yyyy'];
+    
+      $scope.popup1 = {
+        opened: false
+      };
+    
+      $scope.popup2 = {
+        opened: false
+      };
+    
+      var tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      var afterTomorrow = new Date();
+      afterTomorrow.setDate(tomorrow.getDate() + 1);
+      $scope.events = [
+        {
+          date: tomorrow,
+          status: 'full'
+        },
+        {
+          date: afterTomorrow,
+          status: 'partially'
+        }
+      ];
+    
+      function getDayClass(data) {
+        var date = data.date,
+          mode = data.mode;
+        if (mode === 'day') {
+          var dayToCheck = new Date(date).setHours(0,0,0,0);
+    
+          for (var i = 0; i < $scope.events.length; i++) {
+            var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+    
+            if (dayToCheck === currentDay) {
+              return $scope.events[i].status;
+            }
+          }
+        }
+    
+        return '';
+      }
+      */
 
 
 
