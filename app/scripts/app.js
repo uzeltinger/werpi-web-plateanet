@@ -63,7 +63,8 @@ angular
         .addHttpAction('POST', 'logout', {}, API_ENDPOINT.url+'oauth2/token/revoke');
 
     apiProvider.endpoint('user')
-        .addHttpAction('GET', 'getCurrentUserInfo', {}, API_ENDPOINT.url+'user/getCurrentUserInfo');
+        .addHttpAction('GET', 'getCurrentUserInfo', {}, API_ENDPOINT.url+'user/getCurrentUserInfo')
+        .addHttpAction('PUT', 'setNewUserData', {}, API_ENDPOINT.url+'user/:id');
 
     apiProvider.endpoint('quotation')
         .route('quotation/:id');

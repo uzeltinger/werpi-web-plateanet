@@ -2819,3 +2819,36 @@ img.ticket {
         width: 260px;
     }
 }*/
+
+/*  PROFILE */
+.profile h3 {
+    text-align: center;
+    text-transform: uppercase;
+    color: #635e5e;
+}
+.profile_form {
+    max-width: 800px;
+    margin: auto;
+}
+.profile label.titulo {
+    margin: 10px auto auto;
+    display: block;
+    color: #6d6868;
+    text-transform: uppercase;
+}
+.profile input[type="text"], .profile input[type="number"] {
+    border: none;
+    border-bottom: 1px solid orange;
+}
+.profile .form-control {
+    height: auto;
+}
+.countryId {
+    margin-top: 10px;
+}
+.form-group.radios label.titulo {
+    margin-bottom: 15px;
+}
+.btn-guardar{
+    background: orange;
+}
