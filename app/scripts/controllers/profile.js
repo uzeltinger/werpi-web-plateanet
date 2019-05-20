@@ -42,6 +42,7 @@ angular.module('werpiApp')
         var data = { id: $scope.user.userId };
         $scope.loading = true;
         api.user.setNewUserData(data, newUserData).$promise.then(function (response) {
+          Session.setUser(response.data.user);    
           $scope.loading = false;
           notify({ messageTemplate: '<i class="fa fa-check big-fa"></i><div class="notify-text">Se han guardado los nuevos datos</div>', classes: 'alert-notify', position: 'right' });
         }, function (response) {
