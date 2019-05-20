@@ -58,9 +58,15 @@ angular.module('werpiApp')
         }
       });
       $scope.otherPlaces = places;
-    }, function (response) { $scope.showTeatros = false; });
+      $scope.myPosition.lat = places[0].info.lat;
+      $scope.myPosition.long = places[0].info.long;
+      getList();
+    }, function (response) { 
+      $scope.showTeatros = false; 
+      getList();
+    });
 
-    getList();
+    
 
     function getList() {
       api.parking.lista({ 'sellerId': SELLER.sellerID, 'latitude': $scope.myPosition.lat, 'longitude': $scope.myPosition.long }).$promise.then(function (response) {
