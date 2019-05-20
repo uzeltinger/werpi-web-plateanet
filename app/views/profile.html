@@ -15,14 +15,20 @@
 				<input ng-model="newUserData.licencePlate" required 
 				type="text" class="form-control" id="licencePlate">
 			</div>
-			<div class="form-group">
-				<label class="titulo" for="firstName">Nombre</label>
+			<div class="form-group">				
+				<label class="titulo" for="firstName">Nombre</label>				
 				<input ng-model="newUserData.firstName" required 
+				pattern="[^0-9]*" oninput="setCustomValidity(' ')" 
+				onchange="try{setCustomValidity('')}catch(e){}" 
+				oninvalid="this.value?setCustomValidity('El Nombre no puede contener números'):setCustomValidity('Ingrese su Nombre')" 				
 				type="text" class="form-control" id="firstName">
 			</div>
-			<div class="form-group">
+			<div class="form-group">                                    
 				<label class="titulo" for="lastName">Apellido</label>
 				<input ng-model="newUserData.lastName" required 
+				pattern="[^0-9]*" oninput="setCustomValidity(' ')" 
+				onchange="try{setCustomValidity('')}catch(e){}" 
+				oninvalid="this.value?setCustomValidity('El Apellido no puede contener números'):setCustomValidity('Ingrese su Apellido')" 
 				type="text" class="form-control" id="lastName">
 			</div>
 
