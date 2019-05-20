@@ -28,12 +28,10 @@
 
 			<div class="form-group radios">
 				<label class="titulo">Tipo Teléfono</label>
-				<label class="radio-inline">
-					<input ng-model="newUserData.phoneTypeId" required type="radio" name="phoneTypeId" id="phoneTypeId1" value="1"> Fijo
-				</label>
-				<label class="radio-inline">
-					<input ng-model="newUserData.phoneTypeId" required type="radio" name="phoneTypeId" id="phoneTypeId2" value="2"> Celular
-				</label>
+				<select class="form-control phoneTypeId" required
+					name="phoneTypeId" id="phoneTypeId" ng-model="newUserData.phoneTypeId">
+					<option ng-repeat="option in phoneTypes" value="{{option.phoneTypeId}}">{{option.phoneType}}</option>
+				</select>
 			</div>
 
 			<div class="form-group">
@@ -41,7 +39,7 @@
 				<input ng-model="newUserData.phoneNumber" required 
 				type="number" class="form-control" id="phoneNumber">
 			</div>
-
+<!--
 			<div class="form-group radios">
 					<label class="titulo">Tipo dirección</label>
 					<label class="radio-inline">
@@ -51,7 +49,7 @@
 						<input ng-model="newUserData.addressTypeId" type="radio" name="addressTypeId" id="addressTypeId2" value="2"> Trabajo
 					</label>
 				</div>
-			
+-->			
 			<div class="form-group">
 				<label class="titulo" for="street">Calle</label>
 				<input ng-model="newUserData.street" required type="text" class="form-control" id="street">
@@ -76,15 +74,11 @@
 			</div>		
 
 			<div class="form-group">
-				<label class="titulo" for="provinceId">Provincia</label>
-
-				<select class="form-control provinceId" required 
-				ng-model="newUserData.provinceId">
-					<option value="">Seleccione Provincia</option>
-					<option value="2">Buenos Aires</option>
-					<option value="3">Córdoba</option>
+				<label class="titulo" for="provinceId">Provincia</label>				
+				<select class="form-control provinceId" required
+					name="provinceId" id="provinceId" ng-model="newUserData.provinceId">
+					<option ng-repeat="option in provinces" value="{{option.provinceId}}">{{option.provinceDescription}}</option>
 				</select>
-
 			</div>
 
 			<div class="form-group">

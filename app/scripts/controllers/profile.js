@@ -8,15 +8,24 @@ angular.module('werpiApp')
     $scope.newUserData.licencePlate = $scope.user.licencePlate;
     $scope.newUserData.firstName = $scope.user.firstName;
     $scope.newUserData.lastName = $scope.user.lastName;
-    $scope.newUserData.phoneTypeId = $scope.user.phoneTypeId;
-    $scope.newUserData.phoneNumber = $scope.user.phoneNumber;
-    $scope.newUserData.addressTypeId = $scope.user.addressTypeId;
-    $scope.newUserData.street = $scope.user.street;
-    $scope.newUserData.streetNumber = $scope.user.streetNumber;
-    $scope.newUserData.floor = $scope.user.floor;
-    $scope.newUserData.zipcode = $scope.user.zipcode;
-    $scope.newUserData.provinceId = $scope.user.provinceId;
-    $scope.newUserData.countryId = $scope.user.countryId;
+    $scope.newUserData.phoneTypeId = $scope.user.phone.phoneType.phoneTypeId.toString();
+    $scope.newUserData.phoneNumber = $scope.user.phone.phoneNumber;
+    $scope.newUserData.addressTypeId = 1;//$scope.user.address.addressType.addressTypeId;
+    $scope.newUserData.street = $scope.user.address.street;
+    $scope.newUserData.streetNumber = $scope.user.address.number;
+    $scope.newUserData.floor = $scope.user.address.floor;
+    $scope.newUserData.zipcode = $scope.user.address.zipCode;
+    $scope.newUserData.provinceId = $scope.user.address.province.provinceId.toString();
+    $scope.newUserData.countryId = $scope.user.address.country.countryId;
+
+    api.province.getProvinces().$promise.then(function (result) {
+      $scope.provinces = result.data;      
+    });
+
+    $scope.phoneTypes = [
+      {"phoneTypeId":"1","phoneType":"Fijo"},
+      {"phoneTypeId":"2","phoneType":"Movil"}
+    ]
 
     $scope.showModifProfileBanner = !($window.sessionStorage.getItem("showModifProfileBanner") == "false");
 
@@ -31,7 +40,6 @@ angular.module('werpiApp')
     $scope.setNewUserData = function (newUserData) {
       if ($scope.profile_form.$valid) {
         var data = { id: $scope.user.userId };
-        console.log('newUserData', newUserData);
         $scope.loading = true;
         api.user.setNewUserData(data, newUserData).$promise.then(function (response) {
           $scope.loading = false;

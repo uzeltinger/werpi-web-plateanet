@@ -87,6 +87,8 @@ angular
     apiProvider.endpoint('plateanet')
         .addHttpAction('GET', 'getTeatros', {}, API_ENDPOINT.url+'/plateanet/teatros');
 
+    apiProvider.endpoint('province')
+        .addHttpAction('GET', 'getProvinces', {}, API_ENDPOINT.url+'province');
 
 
 }])
