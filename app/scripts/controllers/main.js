@@ -15,10 +15,12 @@ angular.module('werpiApp')
     $scope.showAll = 4;
     $scope.totalParkings = 0;
     $scope.urlIdTeatro = null;
+    $scope.mostrarDistancia = false;
 
     if ($location.search().id_teatro) {
       $scope.urlIdTeatro = $location.search().id_teatro;
       $window.sessionStorage.setItem("urlIdTeatro", $scope.urlIdTeatro);
+      $scope.mostrarDistancia = true;
     } else {
       if ($window.sessionStorage.getItem('urlIdTeatro')) {
         $scope.urlIdTeatro = $window.sessionStorage.getItem('urlIdTeatro');

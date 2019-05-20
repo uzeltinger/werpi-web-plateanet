@@ -11,7 +11,7 @@
                 <div class="card-container">
                     <h4><b>{{parking.parkingName}}</b></h4>
                     <p>{{parking.address.street}} {{parking.address.number}}</p>
-                    <p>a {{parking.distance | number : 2}} m del teatro</p>
+                    <p ng-show="mostrarDistancia">a {{parking.distance | number : 2}} m del teatro</p>
                     <button type="submit" ng-click="reservar(parking)"
                         class="btn btn-blue btn-effect btn-top-margin">Reservar</button>
 
