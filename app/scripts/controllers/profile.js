@@ -4,7 +4,6 @@ angular.module('werpiApp')
 
     $scope.user = Session.getUser();
     var token = Session.getSession().token;
-    console.log("$scope.user",$scope.user);
     $scope.newUserData = {};
     $scope.newUserData.licencePlate = $scope.user.licencePlate;
     $scope.newUserData.firstName = $scope.user.firstName;
