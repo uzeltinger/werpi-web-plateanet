@@ -5,24 +5,26 @@
         <h3><strong>¡Ahora reservá tu estacionamiento!</strong></h3>
     </div>
 
-    <div class="row">
-        <div ng-repeat="parking in parkings" class="col-sm-6 col-md-4 col-lg-3">            
-            <div class="card" ng-show="$index<showAll">
-                <div class="card-container">
-                    <h4><b>{{parking.parkingName}}</b></h4>
-                    <p>{{parking.address.street}} {{parking.address.number}}</p>
-                    <p ng-show="mostrarDistancia">a {{parking.distance | number : 2}} m del teatro</p>
-                    <button type="submit" ng-click="reservar(parking)"
-                        class="btn btn-blue btn-effect btn-top-margin">Reservar</button>
+    <div class="home-container">
+        <div class="row">
+            <div ng-repeat="parking in parkings" class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card" ng-show="$index<showAll">
+                    <div class="card-container">
+                        <h4><b>{{parking.parkingName}}</b></h4>
+                        <p>{{parking.address.street}} {{parking.address.number}}</p>
+                        <p ng-show="mostrarDistancia">a {{parking.distance | number : 2}} m del teatro</p>
+                        <button type="submit" ng-click="reservar(parking)"
+                            class="btn btn-blue btn-effect btn-top-margin">Reservar</button>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="vermas" ng-show="totalParkings>4">
-            <button type="submit" ng-click="verMas()" class="btn btn-blue btn-effect btn-top-margin">Ver más</button>
+        <div class="row">
+            <div class="vermas" ng-show="totalParkings>4">
+                <button type="submit" ng-click="verMas()" class="btn btn-blue btn-effect btn-top-margin">Ver
+                    más</button>
+            </div>
         </div>
     </div>
-
 </div>
