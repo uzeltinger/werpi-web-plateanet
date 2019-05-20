@@ -4,19 +4,26 @@ angular.module('werpiApp')
 
     $scope.user = Session.getUser();
     var token = Session.getSession().token;
+    console.log("$scope.user",$scope.user);
     $scope.newUserData = {};
     $scope.newUserData.licencePlate = $scope.user.licencePlate;
     $scope.newUserData.firstName = $scope.user.firstName;
     $scope.newUserData.lastName = $scope.user.lastName;
-    $scope.newUserData.phoneTypeId = $scope.user.phone.phoneType.phoneTypeId.toString();
-    $scope.newUserData.phoneNumber = $scope.user.phone.phoneNumber;
-    $scope.newUserData.addressTypeId = 1;//$scope.user.address.addressType.addressTypeId;
-    $scope.newUserData.street = $scope.user.address.street;
-    $scope.newUserData.streetNumber = $scope.user.address.number;
-    $scope.newUserData.floor = $scope.user.address.floor;
-    $scope.newUserData.zipcode = $scope.user.address.zipCode;
-    $scope.newUserData.provinceId = $scope.user.address.province.provinceId.toString();
-    $scope.newUserData.countryId = $scope.user.address.country.countryId;
+    if($scope.user.phone){
+      $scope.newUserData.phoneTypeId = $scope.user.phone.phoneType.phoneTypeId.toString();
+      $scope.newUserData.phoneNumber = $scope.user.phone.phoneNumber;
+    }
+    $scope.newUserData.addressTypeId = 1;//$scope.user.address.addressType.addressTypeId;    
+    if($scope.user.address){
+      $scope.newUserData.street = $scope.user.address.street;
+      $scope.newUserData.streetNumber = $scope.user.address.number;
+      $scope.newUserData.floor = $scope.user.address.floor;
+      $scope.newUserData.zipcode = $scope.user.address.zipCode;
+      $scope.newUserData.provinceId = $scope.user.address.province.provinceId.toString();
+      $scope.newUserData.countryId = $scope.user.address.country.countryId;
+    }else{
+      $scope.newUserData.countryId = "AR";
+    }
 
     api.province.getProvinces().$promise.then(function (result) {
       $scope.provinces = result.data;      
